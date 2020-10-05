@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <stdbool.h>
 
+
 char* str_compute_sum(const char* num1, const char* num2);
 
 int main() {
