@@ -22,12 +22,12 @@ int main() {
   if (sum && strcmp(sum, "981375960128") == 0)  { // checks sum != NULL and the value is correct
     printf("Q5-2 ok\n");
     free(sum);
-    return true;
+    // return true;
   }
   else  {
     printf("Q5-2 ERROR\n");
     free(sum);
-    return false;
+    // return false;
   }
 
   return 0;
@@ -68,11 +68,9 @@ char* str_compute_sum(const char* num1, const char* num2) {
 
       if(i==len-2) {
         if(addup==1) {
-          elementSum = '1';
-          *sum = elementSum;
+          *sum = '1';
         }else {
-          elementSum = '0';
-          *sum = elementSum;
+          *sum = '0';
         }
         // printf("*sum = %c\n", *sum);
 
@@ -130,7 +128,7 @@ char* str_compute_sum(const char* num1, const char* num2) {
         if(addup==1) {
           *sum = '1';
         }else {
-          *sum = '1';
+          *sum = '0';
         }
         // printf("*sum = %c\n", *sum);
 
