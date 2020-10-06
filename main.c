@@ -8,18 +8,26 @@ char* str_compute_sum(const char* num1, const char* num2);
 
 int main() {
 
-  // char* str2 = "1";
-  // char* str1 = "1999";
-  char* str1 = "123530124";
-  char* str2 = "981252430004";
+  // test1---------------------
+  char* str2 = "1";
+  char* str1 = "1999";
+  // output == "2000"
+
+
+  // test2---------------------
+  // char* str1 = "123530124";
+  // char* str2 = "981252430004";
+  // output == "981375960128"
+
+
   char* sum = str_compute_sum(str1, str2);
 
-  for(int i=0; i<12; i++) {
+  for(int i=0; i<5; i++) {
     printf("%c", sum[i]);
   }
   printf("\n");
 
-  if (sum && strcmp(sum, "981375960128") == 0)  { // checks sum != NULL and the value is correct
+  if (sum && strcmp(sum, "2000") == 0)  { // checks sum != NULL and the value is correct
     printf("Q5-2 ok\n");
     free(sum);
   }
@@ -34,9 +42,9 @@ int main() {
 
 // num1 + num2 = sum
 char* str_compute_sum(const char* num1, const char* num2) {
-  int index1=0, index2=0;
-  int len, len1, len2;
-  int addup=0;
+
+  int index1=0, index2=0, addup=0;
+  int len, len1, len2, lenBigger, lenSmaller;
 
   char* sum;
 
@@ -45,128 +53,90 @@ char* str_compute_sum(const char* num1, const char* num2) {
     index1++;
   }
   len1 = index1+1;
+
   // count the length of array2
   while(*(num2+index2) != '\0') {
     index2++;
   }
   len2 = index2+1;
 
-
+  // set variables for bigger array and smaller array
   if(len1>=len2) {
-    // reserve memory enough for array of length bigger array
-    len=len1+1;
-    sum = malloc(sizeof(char)*len);
-    *sum = '0';
-    *(sum+len-1) = '\0';
-    char int1, int2;
-
-    // add elements starting from end of both arrays
-    for(int i=0; i<len-1; i++) {
-      char elementSum;
-
-      if(i==len-2) {
-        if(addup==1) {
-          *sum = '1';
-        }else {
-          *sum = '0';
-        }
-        // printf("*sum = %c\n", *sum);
-
-      }else if(i>=len2-1) {
-
-        int1 = *( num1+(len1-2)-i);
-        int2 = '0' - 48;
-        // printf("[%d] %c+%d  +%d\n", len-2-i, int1, int2, addup);
-
-        elementSum = int1 + int2 + addup;
-
-        // printf("elementSum:%d\n", elementSum);
-
-        if(elementSum>'9') {
-          *( sum+(len-2)-(i) ) = elementSum - 10;
-          addup=1;
-
-        }else {
-          *( sum+(len-2)-(i) ) = elementSum;
-          addup=0;
-          
-        }
-      }else {
-        int1 = *( num1+(len1-2)-i);
-        int2 = *(num2+(len2-2)-i) - 48;
-        // printf("[%d] %c+%d  +%d\n", len-2-i, int1, int2, addup);
-
-        elementSum = int1 + int2 + addup;
-        // printf("elementSum:%d\n", elementSum);
-
-        if(elementSum>'9') {
-          *( sum+(len-2)-i ) = elementSum - 10;
-          addup=1;
-        }else {
-          *( sum+(len-2)-i ) = elementSum;
-          addup=0;
-        }
-        
-      }
-    }
-
+    lenBigger = len1;
+    lenSmaller = len2;
   }else {
-    // reserve memory enough for array of length longer than bigger num
-    len=len2+1;
-    sum = malloc(sizeof(char)*len);
-    *sum = '0';
-    *(sum+len-1) = '\0';
-    char int1, int2;
+    lenBigger = len2;
+    lenSmaller = len1;
+  }
 
-    // add elements starting from end of both arrays
-    for(int i=0; i<len-1; i++) {
-      char elementSum;
 
-      if(i==len-2) {
-        if(addup==1) {
-          *sum = '1';
-        }else {
-          *sum = '0';
-        }
-        // printf("*sum = %c\n", *sum);
+  // reserve memory enough for array of length bigger array
+  len=lenBigger+1;
+  sum = malloc(sizeof(char)*len);
+  *sum = '0';
+  *(sum+len-1) = '\0';
+  char intBigger, intSmaller;
+  char elementSum;
 
-      }else if(i>=len1-1) {
 
-        int1 = '0' - 48;
-        int2 = *( num2+(len2-2)-i);
-        // printf("[%d] %c+%d  +%d\n", len-2-i, int1, int2, addup);
+  // add elements starting from end of both arrays
+  for(int i=0; i<len-1; i++) {
 
-        elementSum = int1 + int2 + addup;
-        // printf("elementSum:%d\n", elementSum);
-
-        if(elementSum>'9') {
-          *( sum+(len-2)-(i) ) = elementSum - 10;
-          addup=1;
-
-        }else {
-          *( sum+(len-2)-(i) ) = elementSum;
-          addup=0;
-          
-        }
+    if(i==len-2) {
+      if(addup==1) {
+        *sum = '1';
       }else {
-        int1 = *( num1+(len1-2)-i) - 48;
-        int2 = *(num2+(len2-2)-i);
-        // printf("[%d] %c+%d  +%d\n", len-2-i, int1, int2, addup);
-
-        elementSum = int1 + int2 + addup;
-        // printf("elementSum:%d\n", elementSum);
-
-        if(elementSum>'9') {
-          *( sum+(len-2)-i ) = elementSum - 10;
-          addup=1;
-        }else {
-          *( sum+(len-2)-i ) = elementSum;
-          addup=0;
-        }
-        
+        *sum = '0';
       }
+      // printf("*sum = %c\n", *sum);
+
+    }else if(i>=lenSmaller-1) {
+
+      if(len1>=len2) {
+        intBigger = *( num1+(lenBigger-2)-i);
+      }else {
+        intBigger = *( num2+(lenBigger-2)-i);
+      }
+      intSmaller = '0' - 48;
+      // printf("[%d] %c+%d  +%d\n", len-2-i, intBigger, intSmaller, addup);
+
+
+      elementSum = intBigger + intSmaller + addup;
+      // printf("elementSum:%d\n", elementSum);
+
+      if(elementSum>'9') {
+        *( sum+(len-2)-(i) ) = elementSum - 10;
+        addup=1;
+      }else {
+        *( sum+(len-2)-(i) ) = elementSum;
+        addup=0;
+      }
+
+    }else {
+      if(len1>=len2) {
+        intBigger = *( num1+(lenBigger-2)-i);
+        intSmaller = *(num2+(lenSmaller-2)-i) - 48;
+      }else {
+        intBigger = *( num2+(lenBigger-2)-i);
+        intSmaller = *(num1+(lenSmaller-2)-i) - 48;
+      }
+      // printf("[%d] %c+%d  +%d\n", len-2-i, intBigger, intSmaller, addup);
+
+
+      elementSum = intBigger + intSmaller + addup;
+      // printf("elementSum:%d\n", elementSum);
+
+      if(elementSum>'9') {
+        *( sum+(len-2)-i ) = elementSum - 10;
+        addup=1;
+      }else {
+        *( sum+(len-2)-i ) = elementSum;
+        addup=0;
+      }
+      
     }
   }
+  
   
   // if 0 remains in first element, shift element
   if(*sum=='0') {
