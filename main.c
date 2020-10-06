@@ -22,7 +22,6 @@ int main() {
   if (sum && strcmp(sum, "981375960128") == 0)  { // checks sum != NULL and the value is correct
     printf("Q5-2 ok\n");
     free(sum);
-    // sum=NULL;
     return true;
   }
   else  {
@@ -56,7 +55,7 @@ char* str_compute_sum(const char* num1, const char* num2) {
 
 
   if(len1>=len2) {
-    // reserve memory enough for array of length longer than bigger num
+    // reserve memory enough for array of length bigger array
     len=len1+1;
     sum = malloc(sizeof(char)*len);
     *sum = '0';
@@ -83,11 +82,7 @@ char* str_compute_sum(const char* num1, const char* num2) {
         int2 = '0' - 48;
         // printf("[%d] %c+%d  +%d\n", len-2-i, int1, int2, addup);
 
-        // if(addup==1) {
         elementSum = int1 + int2 + addup;
-        // }else {
-        //   elementSum = int1 + int2;
-        // }
 
         // printf("elementSum:%d\n", elementSum);
 
@@ -133,11 +128,9 @@ char* str_compute_sum(const char* num1, const char* num2) {
 
       if(i==len-2) {
         if(addup==1) {
-          elementSum = '1';// can be simplified
-          *sum = elementSum;// can be simplified
+          *sum = '1';
         }else {
-          elementSum = '0';// can be simplified
-          *sum = elementSum;// can be simplified
+          *sum = '1';
         }
         // printf("*sum = %c\n", *sum);
 
@@ -147,12 +140,7 @@ char* str_compute_sum(const char* num1, const char* num2) {
         int2 = *( num2+(len2-2)-i);
         // printf("[%d] %c+%d  +%d\n", len-2-i, int1, int2, addup);
 
-        // if(addup==1) {
         elementSum = int1 + int2 + addup;
-        // }else {
-        //   elementSum = int1 + int2;
-        // }
-
         // printf("elementSum:%d\n", elementSum);
 
         if(elementSum>'9') {
