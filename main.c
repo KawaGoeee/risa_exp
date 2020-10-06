@@ -22,12 +22,10 @@ int main() {
   if (sum && strcmp(sum, "981375960128") == 0)  { // checks sum != NULL and the value is correct
     printf("Q5-2 ok\n");
     free(sum);
-    // return true;
   }
   else  {
     printf("Q5-2 ERROR\n");
     free(sum);
-    // return false;
   }
 
   return 0;
